@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan Choudhary — Backend &amp; Data Engineer</title>
+    <meta name="description"
+        content="Aryan Choudhary — Computer Science Engineering student specializing in backend development, SQL, and data pipeline automation. Symbiosis Institute of Technology, class of 2027.">
+    <meta name="author" content="Aryan Choudhary">
+    <meta name="keywords"
+        content="Aryan Choudhary, Backend Developer, Data Engineer, Python, SQL, REST API, Symbiosis Institute of Technology">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Aryan Choudhary — Backend & Data Engineer">
+    <meta property="og:description"
+        content="Computer Science Engineering student building REST APIs, data pipelines, and relational database systems.">
+    <meta property="og:locale" content="en_IN">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%2310141c%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 fill=%22%236FB1FC%22 text-anchor=%22middle%22 font-family=%22monospace%22>&gt;_</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --ink: #10141c;
+            --surface: #161c28;
+            --surface-2: #1b2230;
+            --paper: #edeff2;
+            --muted: #8b95a7;
+            --border: #262e3d;
+            --blue: #6fb1fc;
+            --amber: #f5b451;
+            --green: #58d68d;
+            --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max: 920px;
+            --radius: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--paper);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        img,
+        svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---------- header ---------- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(16, 20, 28, 0.86);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .brand {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--paper);
+            letter-spacing: -0.02em;
+        }
+
+        .brand span {
+            color: var(--blue);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+        }
+
+        nav a:hover {
+            color: var(--paper);
+            text-decoration: none;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--paper);
+            font-family: var(--font-mono);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        @media (max-width:720px) {
+            nav ul {
+                position: fixed;
+                inset: 64px 0 auto 0;
+                background: var(--surface);
+                flex-direction: column;
+                padding: 16px 24px;
+                gap: 4px;
+                border-bottom: 1px solid var(--border);
+                transform: translateY(-8px);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform .18s ease, opacity .18s ease;
+            }
+
+            nav ul.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            nav a {
+                display: block;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                display: inline-block;
+            }
+        }
+
+        /* ---------- eyebrow / section labels ---------- */
+        .eyebrow {
+            font-family: var(--font-mono);
+            color: var(--green);
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eyebrow::before {
+            content: "--";
+            color: var(--muted);
+        }
+
+        section {
+            padding: 88px 0;
+        }
+
+        section+section {
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            font-family: var(--font-mono);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--paper);
+            margin-bottom: 36px;
+            letter-spacing: -0.01em;
+        }
+
+        /* ---------- hero / terminal ---------- */
+        .hero {
+            padding: 110px 0 90px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (max-width:860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kicker {
+            font-family: var(--font-mono);
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+        }
+
+        .kicker .path {
+            color: var(--amber);
+        }
+
+        h1 {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 3.1rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--paper);
+            margin-bottom: 20px;
+        }
+
+        h1 .accent {
+            color: var(--blue);
+        }
+
+        .lede {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 52ch;
+            margin-bottom: 32px;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: border-color .15s ease, transform .15s ease;
+        }
+
+        .btn:hover {
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: #0a1220;
+            border-color: var(--blue);
+        }
+
+        .btn-primary:hover {
+            background: #8ec1ff;
+        }
+
+        .btn-ghost {
+            color: var(--paper);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--muted);
+        }
+
+        /* terminal window */
+        .terminal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+        }
+
+        .term-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 14px;
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .term-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .term-bar span:nth-child(4) {
+            margin-left: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .term-body {
+            padding: 22px 20px;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: var(--paper);
+            min-height: 220px;
+        }
+
+        .term-body .muted {
+            color: var(--muted);
+        }
+
+        .term-body .kw {
+            color: var(--blue);
+        }
+
+        .term-body .str {
+            color: var(--amber);
+        }
+
+        .term-body .num {
+            color: var(--green);
+        }
+
+        .term-line {
+            margin-bottom: 6px;
+            white-space: pre-wrap;
+        }
+
+        .caret {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            background: var(--blue);
+            vertical-align: text-bottom;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* ---------- about ---------- */
+        .about-body p {
+            color: var(--muted);
+            max-width: 70ch;
+            margin-bottom: 16px;
+            font-size: 1.02rem;
+        }
+
+        .about-body strong {
+            color: var(--paper);
+            font-weight: 600;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 36px;
+        }
+
+        @media (max-width:600px) {
+            .stat-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            background: var(--surface);
+        }
+
+        .stat .n {
+            font-family: var(--font-mono);
+            font-size: 1.7rem;
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        .stat .l {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* ---------- experience timeline ---------- */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+            border-left: 1px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 36px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -33px;
+            top: 4px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--ink);
+            border: 2px solid var(--green);
+        }
+
+        .role-head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .role-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--paper);
+        }
+
+        .role-sub {
+            color: var(--blue);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .role-date {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .role-list {
+            list-style: none;
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .role-list li {
+            color: var(--muted);
+            padding-left: 18px;
+            position: relative;
+            font-size: 0.97rem;
+        }
+
+        .role-list li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-family: var(--font-mono);
+        }
+
+        .role-list li strong {
+            color: var(--paper);
+            font-weight: 600;
+        }
+
+        /* ---------- projects as schema cards ---------- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        @media (max-width:760px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-head {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .card-head h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--paper);
+        }
+
+        .card-head span {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .card-body {
+            padding: 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stack-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--blue);
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 5px;
+            background: var(--surface-2);
+        }
+
+        .card-body ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-body li {
+            color: var(--muted);
+            font-size: 0.93rem;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .card-body li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: var(--amber);
+            font-weight: 700;
+        }
+
+        /* ---------- skills ---------- */
+        .skill-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        @media (max-width:600px) {
+            .skill-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .skill-label {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--green);
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            font-size: 0.85rem;
+            color: var(--paper);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        /* ---------- achievements ---------- */
+        .ach-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .ach-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+        }
+
+        .ach-icon {
+            color: var(--amber);
+            font-family: var(--font-mono);
+            flex-shrink: 0;
+        }
+
+        .ach-item p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .ach-item strong {
+            color: var(--paper);
+        }
+
+        /* ---------- education ---------- */
+        .edu-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            padding: 20px 22px;
+            margin-bottom: 16px;
+        }
+
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-top {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .edu-top h3 {
+            font-size: 1.05rem;
+            color: var(--paper);
+        }
+
+        .edu-date {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .edu-sub {
+            color: var(--blue);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .edu-meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* ---------- footer / contact ---------- */
+        footer {
+            padding: 70px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .foot-terminal {
+            font-family: var(--font-mono);
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .foot-terminal .prompt {
+            color: var(--green);
+        }
+
+        .foot-terminal a {
+            color: var(--blue);
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 26px;
+            margin-bottom: 32px;
+        }
+
+        .contact-row a {
+            font-family: var(--font-mono);
+            font-size: 0.92rem;
+            color: var(--paper);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-row a:hover {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .contact-row svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--muted);
+        }
+
+        .fine {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-family: var(--font-mono);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        ::selection {
+            background: var(--blue);
+            color: #0a1220;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav">
+            <a href="#top" class="brand">aryan<span>.choudhary</span></a>
+            <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">menu</button>
+            <ul id="navMenu">
+                <li><a href="#about">about</a></li>
+                <li><a href="#experience">experience</a></li>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#skills">skills</a></li>
+                <li><a href="#education">education</a></li>
+                <li><a href="#contact">contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="top">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="wrap hero-grid">
+                <div>
+                    <p class="kicker">~/<span class="path">aryan-choudhary</span>/README.md</p>
+                    <h1>Backend engineer.<br>Data <span class="accent">pipeline</span> builder.<br>4th-year CS student.
+                    </h1>
+                    <p class="lede">I build REST APIs, optimize SQL queries, and automate data pipelines — currently
+                        completing a B.Tech in Computer Science Engineering at Symbiosis Institute of Technology, Pune.
+                    </p>
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="mailto:aryanchoudharyiaf@gmail.com">Email me</a>
+                        <a class="btn btn-ghost" href="tel:+918102538177">Call: 8102538177</a>
+                    </div>
+                </div>
+                <div class="terminal" role="img"
+                    aria-label="Terminal window showing a mock database query describing Aryan's profile">
+                    <div class="term-bar">
+                        <span class="term-dot" style="background:#ff5f56"></span>
+                        <span class="term-dot" style="background:#ffbd2e"></span>
+                        <span class="term-dot" style="background:#27c93f"></span>
+                        <span>engineer.sql</span>
+                    </div>
+                    <div class="term-body">
+                        <div class="term-line"><span class="kw">SELECT</span> * <span class="kw">FROM</span> engineers
+                        </div>
+                        <div class="term-line"><span class="kw">WHERE</span> name = <span class="str">'Aryan
+                                Choudhary'</span>;</div>
+                        <div class="term-line muted">-- 1 row returned</div>
+                        <div class="term-line">&nbsp;</div>
+                        <div class="term-line">role : <span class="str">'Backend / Data Engineer'</span></div>
+                        <div class="term-line">stack : [<span class="str">'Python'</span>, <span
+                                class="str">'SQL'</span>, <span class="str">'Flask'</span>, <span
+                                class="str">'AWS'</span>]</div>
+                        <div class="term-line">uptime : <span class="num">99%</span> @ 200+ users</div>
+                        <div class="term-line">status : <span class="str">'open to opportunities'</span><span
+                                class="caret"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="wrap">
+                <p class="eyebrow">about</p>
+                <h2>Professional summary</h2>
+                <div class="about-body">
+                    <p>Computer Science Engineering student with hands-on experience in <strong>Python, SQL, and backend
+                            development</strong> — building REST APIs, automating data pipelines, and designing
+                        relational database schemas.</p>
+                    <p>Completed a <strong>6-month production internship</strong> engineering backend services and
+                        optimizing query performance for a MERN application serving <strong>200+ users</strong>. Skilled
+                        in database design, cloud computing (AWS), and data-driven automation, with additional
+                        experience in data analysis using Pandas, NumPy, and Excel.</p>
+                    <p>Currently seeking to apply strong Python, SQL, and data engineering skills to a <strong>Backend /
+                            Data Engineer</strong> role focused on data extraction, pipeline automation, and business
+                        insights.</p>
+                </div>
+                <div class="stat-row">
+                    <div class="stat">
+                        <div class="n">200+</div>
+                        <div class="l">users served in production</div>
+                    </div>
+                    <div class="stat">
+                        <div class="n">15+</div>
+                        <div class="l">REST APIs integrated</div>
+                    </div>
+                    <div class="stat">
+                        <div class="n">7.54</div>
+                        <div class="l">CGPA / 10.0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience">
+            <div class="wrap">
+                <p class="eyebrow">experience</p>
+                <h2>Work history</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="role-head">
+                            <div>
+                                <div class="role-title">Software Development Intern — Yellow Cube</div>
+                                <div class="role-sub">CRM for Real Estate Platform · MERN Stack · Remote</div>
+                            </div>
+                            <div class="role-date">Jan 2025 – Jul 2025</div>
+                        </div>
+                        <ul class="role-list">
+                            <li>Engineered a <strong>role-based backend CRM system</strong> with Admin, Broker, and
+                                Client services, implementing secure JWT authentication and session management to
+                                support 200+ active users at 99% uptime.</li>
+                            <li>Optimized backend performance by integrating <strong>15+ RESTful APIs</strong>,
+                                improving asynchronous data retrieval and Twilio SMS workflow automation, reducing
+                                broker response time by 40%.</li>
+                            <li>Improved application data retrieval performance by <strong>30%</strong> through SQL
+                                query optimization and efficient backend state management.</li>
+                            <li>Automated cloud deployment pipelines via Vercel, managing environment configurations and
+                                database operations across development, staging, and production builds.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects">
+            <div class="wrap">
+                <p class="eyebrow">projects</p>
+                <h2>Selected work</h2>
+                <div class="project-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Cloud Resource Negotiation Agent</h3>
+                            <span>2025</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="stack-row">
+                                <span class="tag">Python</span><span class="tag">Flask</span><span
+                                    class="tag">AWS</span><span class="tag">REST APIs</span><span
+                                    class="tag">Reinforcement Learning</span>
+                            </div>
+                            <ul>
+                                <li>Architected a Python backend for an AI-powered negotiation agent using Reinforcement
+                                    Learning and Game Theory to optimize resource allocation across dynamic cloud
+                                    systems.</li>
+                                <li>Built and deployed Flask-based REST APIs on AWS to process negotiation requests and
+                                    manage simulation datasets.</li>
+                                <li>Implemented adaptive decision-making logic to process fluctuating resource demand
+                                    data in real time.</li>
+                                <li>Engineered an interactive dashboard visualizing resource utilization and negotiation
+                                    outcomes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Hostel Management System</h3>
+                            <span>2024</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="stack-row">
+                                <span class="tag">MySQL</span><span class="tag">SQL</span><span class="tag">Database
+                                    Design</span>
+                            </div>
+                            <ul>
+                                <li>Designed a database-driven system to manage student records, room allocation, fee
+                                    tracking, complaints, and outpass approvals.</li>
+                                <li>Modelled relational architecture using ER/EER diagrams with normalized schemas
+                                    across <strong>8+ interconnected entities</strong>.</li>
+                                <li>Enforced referential integrity through primary-foreign key relationships, reducing
+                                    data redundancy.</li>
+                                <li>Wrote SQL queries, joins, views, and stored procedures for efficient data retrieval
+                                    and reporting.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills">
+            <div class="wrap">
+                <p class="eyebrow">skills</p>
+                <h2>Technical skills</h2>
+                <div class="skill-groups">
+                    <div class="skill-row">
+                        <div class="skill-label">languages</div>
+                        <div class="chip-row"><span class="chip">Python</span><span class="chip">JavaScript</span><span
+                                class="chip">C++</span></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">databases</div>
+                        <div class="chip-row"><span class="chip">SQL</span><span class="chip">MySQL</span><span
+                                class="chip">MongoDB</span></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">backend</div>
+                        <div class="chip-row"><span class="chip">FastAPI</span><span class="chip">Flask</span><span
+                                class="chip">REST APIs</span></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">data engineering</div>
+                        <div class="chip-row"><span class="chip">Pandas</span><span class="chip">NumPy</span><span
+                                class="chip">Excel</span><span class="chip">Power BI</span></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">cloud &amp; tools</div>
+                        <div class="chip-row"><span class="chip">AWS</span><span class="chip">Vercel</span><span
+                                class="chip">Git</span><span class="chip">GitHub</span><span class="chip">VS
+                                Code</span><span class="chip">Postman</span><span class="chip">Jupyter Notebook</span>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">concepts</div>
+                        <div class="chip-row"><span class="chip">Database Design</span><span class="chip">Query
+                                Optimization</span><span class="chip">Data Processing</span><span class="chip">Backend
+                                Development</span><span class="chip">AI/ML Integration</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+        <section id="achievements">
+            <div class="wrap">
+                <p class="eyebrow">achievements</p>
+                <h2>Certifications &amp; recognition</h2>
+                <div class="ach-list">
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>Nutanix Hybrid Cloud Fundamentals (NHCF)</strong> — Nutanix University, Feb 2026</p>
+                    </div>
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>Cloud Computing Fundamentals</strong> — Credly, Oct 2025</p>
+                    </div>
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>2nd Place</strong> — SIU Inter-Institute Basketball Tournament</p>
+                    </div>
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>2nd Place</strong> — SIU Inter-Institute Handball Tournament</p>
+                    </div>
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>NCC 'A' &amp; 'B' Certificate</strong> Holder with Distinction — Republic Day &amp;
+                            Independence Day Parade Participant</p>
+                    </div>
+                    <div class="ach-item"><span class="ach-icon">▸</span>
+                        <p><strong>House Captain</strong>, Sainik School Nalanda — led event organisation, team
+                            coordination, and institutional representation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section id="education">
+            <div class="wrap">
+                <p class="eyebrow">education</p>
+                <h2>Academic background</h2>
+                <div class="edu-item">
+                    <div class="edu-top">
+                        <h3>Symbiosis Institute of Technology, Pune</h3>
+                        <span class="edu-date">Jul 2023 – Jul 2027</span>
+                    </div>
+                    <div class="edu-sub">B.Tech in Computer Science Engineering</div>
+                    <div class="edu-meta">CGPA: 7.54 / 10.0 · Currently in 4th year</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-top">
+                        <h3>Sainik School Nalanda</h3>
+                        <span class="edu-date">2020 – 2022</span>
+                    </div>
+                    <div class="edu-meta">Class XII: 85.6% · Class X: 94.8%</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <div class="wrap">
+            <p class="eyebrow">contact</p>
+            <p class="foot-terminal"><span class="prompt">$</span> reach --out <a
+                    href="mailto:aryanchoudharyiaf@gmail.com">aryanchoudharyiaf@gmail.com</a></p>
+            <div class="contact-row">
+                <a href="mailto:aryanchoudharyiaf@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 4h16v16H4z" />
+                        <path d="m22 6-10 7L2 6" />
+                    </svg>
+                    aryanchoudharyiaf@gmail.com
+                </a>
+                <a href="tel:+918102538177">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    8102538177
+                </a>
+                <a href="#" aria-label="GitHub profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                    GitHub
+                </a>
+                <a href="#" aria-label="LinkedIn profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                    LinkedIn
+                </a>
+            </div>
+            <p class="fine">© 2026 Aryan Choudhary. Built with HTML &amp; CSS — no framework required.</p>
+        </div>
+    </footer>
+
+    <script>
+        var toggle = document.getElementById('navToggle');
+        var menu = document.getElementById('navMenu');
+        toggle.addEventListener('click', function () {
+            var isOpen = menu.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        menu.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                menu.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
